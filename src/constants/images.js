@@ -14,6 +14,11 @@ import typescript from '../assets/typescript.png';
 import logo from '../assets/logo.png';
 import profile from '../assets/profile.png';
 
+import about01 from '../assets/about01.png';
+import about02 from '../assets/about02.png';
+import about03 from '../assets/about03.png';
+import about04 from '../assets/about04.png';
+
 import email from '../assets/email.png';
 
 import bgIMG from '../assets/bgIMG.png';
@@ -36,6 +41,10 @@ export default {
   typescript,
   logo,
   profile,
+  about01,
+  about02,
+  about03,
+  about04,
   email,
   bgIMG,
   bgWhite,
