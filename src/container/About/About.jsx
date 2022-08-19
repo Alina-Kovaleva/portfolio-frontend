@@ -20,8 +20,8 @@ const About = () => {
   return (
     <>
       <h2 className="head-text">
-        I Know that <span>Good Development</span> <br />
-        means <span>Good Business</span>
+        Hi there <span>I'm Alina</span> <br />
+        and <span>I'm Junior Frontend Developer</span>
       </h2>
 
       <div className="app__profiles">
@@ -47,4 +47,4 @@ const About = () => {
   );
 };
 
-export default AppWrap(About, 'about');
+export default AppWrap(About, 'about', 'app__whitebg');

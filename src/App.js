@@ -10,8 +10,8 @@ function App() {
       <About />
       <Work />
       <Skills />
-      <Footer />
-      <Testimonial />
+      {/* <Footer /> */}
+      {/* <Testimonial /> */}
     </div>
   );
 }
