@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import { images } from '../../constants';
-import { AppWrap } from '../../wrapper';
+import { images } from "../../constants";
+import { AppWrap } from "../../wrapper";
 
-import './Footer.scss';
+import "./Footer.scss";
 
 const Footer = () => {
   return (
     <>
       <h2 className="head-text">
-        Looking for a Junior Developer? <span>Chat With Me</span>
+        Looking for a Developer? <span>Chat With Me</span>
       </h2>
       <div className="app__footer-cards">
         <div className="app__footer-card">
@@ -23,4 +23,4 @@ const Footer = () => {
   );
 };
 
-export default AppWrap(Footer, 'contact', 'app_whitebg');
+export default AppWrap(Footer, "contact", "app_whitebg");
