@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import ReactTooltip from 'react-tooltip';
-
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 import { motion } from 'framer-motion';
 import { AppWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
@@ -62,29 +62,25 @@ const Skills = () => {
                   <p className="bold-text">{experience.year}</p>
                 </div>
                 <motion.div className="app__skills-exp-works">
-                  {experience.works.map((work) => (
-                    <>
-                      <motion.div
-                        whileInView={{ opacity: [0, 1] }}
-                        transition={{ duration: 0.5 }}
-                        className="app__skills-exp-work"
-                        data-tip
-                        data-for={work.name}
-                        key={work.name}
-                      >
-                        <h4 className="bold-text">{work.name}</h4>
-                        <p className="p-text">{work.company}</p>
-                      </motion.div>
-                      <ReactTooltip
-                        id={work.name}
-                        effect="solid"
-                        arrowColor="#fff"
-                        className="skills-tooltip"
-                      >
-                        {work.desc}
-                      </ReactTooltip>
-                    </>
-                  ))}
+                  {experience.works.map((work) => {
+                    const tooltipId = `experience-${experience.year}-${work.name}`.replace(/\s+/g, '-');
+                    return (
+                      <React.Fragment key={tooltipId}>
+                        <motion.div
+                          whileInView={{ opacity: [0, 1] }}
+                          transition={{ duration: 0.5 }}
+                          className="app__skills-exp-work"
+                          data-tooltip-id={tooltipId}
+                          data-tooltip-content={work.desc}
+                          data-tooltip-place="top"
+                        >
+                          <h4 className="bold-text">{work.name}</h4>
+                          <p className="p-text">{work.company}</p>
+                        </motion.div>
+                        <Tooltip id={tooltipId} className="skills-tooltip" opacity={1} arrowColor="#fff" />
+                      </React.Fragment>
+                    );
+                  })}
                 </motion.div>
               </motion.div>
             ))}
