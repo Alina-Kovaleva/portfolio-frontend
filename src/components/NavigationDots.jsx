@@ -11,7 +11,9 @@ const NavigationDots = ({ active }) => {
           title={item}
           className="app__navigation-dot"
           style={active === item ? { backgroundColor: '#313BAC' } : {}}
-        />
+        >
+          <span className="visually-hidden">{item}</span>
+        </a>
       ))}
     </div>
   );
