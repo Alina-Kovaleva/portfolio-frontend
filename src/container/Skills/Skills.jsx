@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 
 import { motion } from 'framer-motion';
-import { AppWrap, MotionWrap } from '../../wrapper';
+import { AppWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
 import './Skills.scss';
 

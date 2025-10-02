@@ -1,6 +1,6 @@
 import api from '../assets/api.png';
 import css from '../assets/css.png';
-import figma from '../assets/api.png';
+import figma from '../assets/figma.png';
 import git from '../assets/git.png';
 import html from '../assets/html.png';
 import javascript from '../assets/javascript.png';
@@ -21,7 +21,7 @@ import bgWhite from '../assets/bgWhite.png';
 
 import circle from '../assets/circle.svg';
 
-export default {
+const images = {
   api,
   css,
   figma,
@@ -41,3 +41,5 @@ export default {
   bgWhite,
   circle,
 };
+
+export default images;
