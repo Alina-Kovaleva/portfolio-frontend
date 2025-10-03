@@ -31,7 +31,7 @@ const About = () => {
             whileHover={{ scale: 1.2 }}
             transition={{ duration: 0.5, type: 'tween' }}
             className='app__profile-item'
-            key={about.title + index}>
+            key={about?._id || about?._key || `${about?.title || 'about'}-${index}`}>
             <img src={urlFor(about.imgUrl)} alt={about.title} />
             <h2 className='bold-text' style={{ marginTop: 20 }}>
               {about.title}

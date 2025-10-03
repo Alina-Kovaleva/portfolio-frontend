@@ -1,5 +1,5 @@
-import React from "react";
-import { NavigationDots, SocialMedia } from "../components";
+import React from 'react';
+import { NavigationDots, SocialMedia } from '../components';
 
 // HOC - hier order component
 
@@ -9,11 +9,11 @@ const AppWrap = (Component, idName, classNames) =>
       <div id={idName} className={`app__container ${classNames}`}>
         <SocialMedia />
 
-        <div className="app__wrapper app__flex">
+        <div className='app__wrapper app__flex'>
           <Component />
-          <div className="copyright">
-            <p className="p-text">@2024 ALINA KOVALEVA</p>
-            <p className="p-text">All rights reserved</p>
+          <div className='copyright'>
+            <p className='p-text'>@2025 ALINA KOVALEVA</p>
+            <p className='p-text'>All rights reserved</p>
           </div>
         </div>
         <NavigationDots active={idName} />

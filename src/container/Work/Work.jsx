@@ -1,11 +1,44 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { AiFillEye, AiFillGithub } from 'react-icons/ai';
 import { motion } from 'framer-motion';
 
 import { AppWrap } from '../../wrapper';
 import { urlFor, client } from '../../client';
 import './Work.scss';
+
+const createDescriptionPreview = (description) => {
+  const rawText = (() => {
+    if (typeof description === 'string') {
+      return description;
+    }
+
+    if (Array.isArray(description)) {
+      return description
+        .map((item) => (typeof item === 'string' ? item : ''))
+        .filter(Boolean)
+        .join(' ');
+    }
+
+    return '';
+  })();
+
+  const normalized = rawText.replace(/\s+/g, ' ').trim();
+
+  if (!normalized) {
+    return { preview: '', truncated: false };
+  }
+
+  const maxLength = 140;
+  const exceedsMaxLength = normalized.length > maxLength;
+  const slice = normalized.slice(0, maxLength);
+  const lastSeparatorIndex = slice.lastIndexOf(' ');
+  const shortened = exceedsMaxLength && lastSeparatorIndex > 80 ? slice.slice(0, lastSeparatorIndex) : slice;
+  const previewText = exceedsMaxLength ? shortened.trimEnd().replace(/[.,!?]+$/, '') : shortened;
+
+  return { preview: previewText, truncated: exceedsMaxLength };
+};
 
 const Work = () => {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -61,55 +94,68 @@ const Work = () => {
         transition={{ duration: 0.5, delayChildren: 0.5 }}
         className="app__work-portfolio"
       >
-        {filterWork.map((work, index) => (
-          <div className="app__work-item app__flex" key={index}>
-            <div className="app__work-img app__flex">
-              <img src={urlFor(work.imgUrl)} alt={work.name} />
+        {filterWork.map((work, index) => {
+          const { preview, truncated } = createDescriptionPreview(work.description);
+          const workIdentifier = work?.slug?.current || work?._id;
+          const workKey = workIdentifier || `${work?.title || 'work'}-${index}`;
 
-              <motion.div
-                whileHover={{ opacity: [0, 1] }}
-                transition={{
-                  duration: 0.25,
-                  ease: 'easeInOut',
-                  staggerChildren: 0.5,
-                }}
-                className="app__work-hover app__flex"
-              >
-                <a href={work.projectLink} target="_blank" rel="noreferrer">
-                  <motion.div
-                    whileHover={{ scale: [1, 0.9] }}
-                    whileInView={{ scale: [0, 1] }}
-                    transition={{ duration: 0.25 }}
-                    className="app__flex"
-                  >
-                    <AiFillEye />
-                  </motion.div>
-                </a>
-                <a href={work.codeLink} target="_blank" rel="noreferrer">
-                  <motion.div
-                    whileHover={{ scale: [1, 0.9] }}
-                    whileInView={{ scale: [0, 1] }}
-                    transition={{ duration: 0.25 }}
-                    className="app__flex"
-                  >
-                    <AiFillGithub />
-                  </motion.div>
-                </a>
-              </motion.div>
-            </div>
+          return (
+            <div className="app__work-item app__flex" key={workKey}>
+              <div className="app__work-img app__flex">
+                <img src={urlFor(work.imgUrl)} alt={work.name} />
 
-            <div className="app__work-content app__flex">
-              <h4 className="bold-text">{work.title}</h4>
-              <p className="p-text" style={{ marginTop: 10 }}>
-                {work.description}
-              </p>
+                <motion.div
+                  whileHover={{ opacity: [0, 1] }}
+                  transition={{
+                    duration: 0.25,
+                    ease: 'easeInOut',
+                    staggerChildren: 0.5,
+                  }}
+                  className="app__work-hover app__flex"
+                >
+                  <a href={work.projectLink} target="_blank" rel="noreferrer">
+                    <motion.div
+                      whileHover={{ scale: [1, 0.9] }}
+                      whileInView={{ scale: [0, 1] }}
+                      transition={{ duration: 0.25 }}
+                      className="app__flex"
+                    >
+                      <AiFillEye />
+                    </motion.div>
+                  </a>
+                  <a href={work.codeLink} target="_blank" rel="noreferrer">
+                    <motion.div
+                      whileHover={{ scale: [1, 0.9] }}
+                      whileInView={{ scale: [0, 1] }}
+                      transition={{ duration: 0.25 }}
+                      className="app__flex"
+                    >
+                      <AiFillGithub />
+                    </motion.div>
+                  </a>
+                </motion.div>
+              </div>
 
-              <div className="app__work-tag app__flex">
-                <p className="p-text">{work.tags[0]}</p>
+              <div className="app__work-content app__flex">
+                <h4 className="bold-text">{work.title}</h4>
+                <p className="p-text app__work-description" style={{ marginTop: 10 }}>
+                  {preview}
+                  {truncated && '...'}
+                </p>
+
+                {workIdentifier && (
+                  <Link className="app__work-more" to={`/projects/${workIdentifier}`}>
+                    View details
+                  </Link>
+                )}
+
+                <div className="app__work-tag app__flex">
+                  <p className="p-text">{work.tags[0]}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </motion.div>
     </>
   );
