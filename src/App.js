@@ -1,18 +1,21 @@
-import { About, Footer, Header, Skills, Work } from './container';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { Navbar } from './components';
+import HomePage from './pages/HomePage';
+import ProjectDetail from './pages/ProjectDetail';
 import './App.scss';
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <Header />
-      <About />
-      <Work />
-      <Skills />
-      <Footer />
-      {/* <Testimonial /> */}
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects/:projectId" element={<ProjectDetail />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

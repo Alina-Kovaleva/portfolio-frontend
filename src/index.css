@@ -10,6 +10,7 @@
   --gray-color: #6b7688;
   --brown-color: #46364a;
   --white-color: #ffffff;
+  --navbar-height: 80px;
 }
 
 * {
@@ -17,4 +18,10 @@
   padding: 0;
   margin: 0;
   scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  height: 100%;
 }
